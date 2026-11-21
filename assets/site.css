@@ -1,0 +1,484 @@
+/*
+78HAM 团队主页的样式。
+颜色跟安卓客户端的品牌色走：橙、粉、紫、蓝、青，底是深夜的电台面板。
+设备列表用纸色，故意和面板分开，读起来像工作台上的一台账。
+
+改颜色只改下面这些变量。页面结构在 index.html。
+*/
+
+:root {
+  --bg: #0c101c;
+  --ink: #f4f1ea;
+  --muted: #b7b3c7;
+  --line: rgba(244, 241, 234, 0.14);
+  --paper: #f6f1e6;
+  --paper-ink: #1c1915;
+  --paper-muted: #5c564c;
+  --hairline: #e4d9c6;
+  --orange: #f6b25d;
+  --pink: #ff8a7a;
+  --purple: #d65ad1;
+  --violet: #8b4ddb;
+  --blue: #4c8fef;
+  --cyan: #4ed6d0;
+  --screen: #07110c;
+  --rx: #b6ffd2;
+  --sans: "Avenir Next", "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --serif: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", "Source Han Serif SC", serif;
+  --mono: ui-monospace, "Sarasa Mono SC", "Noto Sans Mono", "Source Han Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.6rem; /* 顶栏粘在上面，锚点要停在它下面 */
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 420px at 12% -10%, rgba(139, 77, 219, 0.28), transparent 60%),
+    radial-gradient(700px 380px at 100% 0%, rgba(78, 214, 208, 0.12), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding: 0.4rem 0.8rem;
+  z-index: 20;
+}
+
+.skip:focus { top: 0.6rem; }
+
+a { color: inherit; }
+
+.wrap {
+  width: min(1080px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+/* --- 顶栏：一条品牌色，下面是名字和页内链接 --- */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(12, 16, 28, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.stripes {
+  height: 5px;
+  background: linear-gradient(90deg, var(--orange), var(--pink), var(--purple), var(--violet), var(--blue), var(--cyan));
+}
+
+.top-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1080px, calc(100% - 2rem));
+  margin: 0 auto;
+  min-height: 4rem;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+}
+
+.brand img { border-radius: 9px; }
+
+.nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.nav a:hover { color: var(--ink); }
+
+.menu {
+  display: none;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font: inherit;
+}
+
+/* --- 首屏：左边说明，右边一台不会发射的演示面板 --- */
+
+.hero { padding: 4.5rem 0 3.5rem; }
+
+.hero-grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
+  font-size: 0.82rem;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+
+h1 { font-size: clamp(2.1rem, 5vw, 3.5rem); }
+
+.lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 40rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0.8rem;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  background: linear-gradient(100deg, var(--orange), var(--pink) 40%, var(--violet));
+  color: #1c1915;
+  font-weight: 700;
+  padding: 0.65rem 1.15rem;
+  border-radius: 999px;
+}
+
+.button.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-weight: 500;
+}
+
+.facts {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.86rem;
+}
+
+.rig {
+  position: relative;
+  background: linear-gradient(180deg, #22263c, #141828);
+  border: 1px solid rgba(244, 241, 234, 0.16);
+  border-radius: 28px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.screws {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.screws i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #8d93ad, #2a2e44 60%);
+  box-shadow: inset 0 0 0 1px #0c0e16;
+}
+
+.screen {
+  background: var(--screen);
+  border-radius: 14px;
+  padding: 0.9rem 0.9rem 0.7rem;
+  box-shadow: inset 0 0 0 1px rgba(182, 255, 210, 0.28);
+  text-align: left;
+}
+
+.screen-name {
+  margin: 0;
+  font-family: var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--rx);
+  font-size: 0.78rem;
+}
+
+.readout {
+  margin: 0.15rem 0 0.6rem;
+  font-family: var(--mono);
+  color: var(--rx);
+  font-size: 1.15rem;
+}
+
+.when-tx { display: none; }
+
+.bars {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  height: 64px;
+}
+
+.bars span {
+  flex: 1;
+  height: 100%;
+  transform-origin: bottom;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(var(--cyan), var(--blue) 55%, var(--violet));
+  animation: level 1.15s ease-in-out infinite;
+}
+
+.bars span:nth-child(odd) { animation-duration: 0.9s; }
+.bars span:nth-child(3n) { animation-delay: -0.35s; }
+.bars span:nth-child(4n) { animation-delay: -0.7s; }
+.bars span:nth-child(5n) { animation-duration: 1.4s; }
+
+@keyframes level {
+  0%, 100% { transform: scaleY(0.22); }
+  50% { transform: scaleY(1); }
+}
+
+.ptt {
+  width: 132px;
+  height: 132px;
+  margin-top: 1.2rem;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #1c1915;
+  font: 700 1.15rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.85), transparent 18%),
+    linear-gradient(160deg, var(--orange), var(--pink) 38%, var(--violet) 72%, var(--cyan));
+  box-shadow: 0 8px 0 #090c16, 0 16px 30px rgba(214, 90, 209, 0.35);
+  touch-action: none;
+}
+
+.ptt-hint {
+  margin: 0.85rem 0 0.2rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+/* 按住时从接收改成发射。鼠标用 :active，键盘和触摸由脚本加上 .tx */
+.rig.tx .when-rx,
+.rig:has(.ptt:active) .when-rx { display: none; }
+
+.rig.tx .when-tx,
+.rig:has(.ptt:active) .when-tx { display: inline; color: #ffc2b6; }
+
+.rig.tx .readout,
+.rig:has(.ptt:active) .readout,
+.rig.tx .screen-name,
+.rig:has(.ptt:active) .screen-name { color: #ffc2b6; }
+
+.rig.tx .screen,
+.rig:has(.ptt:active) .screen { box-shadow: inset 0 0 0 1px rgba(255, 138, 122, 0.7); }
+
+.rig.tx .bars span,
+.rig:has(.ptt:active) .bars span {
+  background: linear-gradient(var(--orange), var(--pink) 50%, var(--purple));
+  animation-duration: 0.42s;
+}
+
+.rig.tx .ptt,
+.rig:has(.ptt:active) .ptt {
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 #090c16, 0 8px 18px rgba(255, 138, 122, 0.4);
+}
+
+/* --- 账本：一台设备一条，纸色和夜色面板分开 --- */
+
+.block { padding: 1rem 0 3rem; }
+
+.block-head { margin-bottom: 1rem; }
+
+.block-head h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+
+.block-head p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  max-width: 40rem;
+}
+
+.book {
+  background:
+    linear-gradient(#e23b3b, #e23b3b) 1.35rem 0 / 2px 100% no-repeat,
+    var(--paper);
+  color: var(--paper-ink);
+  border-radius: 18px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+}
+
+.entry,
+.spec-row {
+  display: grid;
+  gap: 0.35rem 1.25rem;
+  padding: 1.25rem 1.25rem 1.25rem 2.4rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.entry:last-child,
+.spec-row:last-child { border-bottom: 0; }
+
+.kicker,
+.aside,
+.where {
+  margin: 0.2rem 0 0;
+  color: var(--paper-muted);
+  font-size: 0.92rem;
+}
+
+.entry p,
+.spec-row p { margin: 0.35rem 0 0; }
+
+.open {
+  justify-self: start;
+  margin-top: 0.4rem;
+  color: var(--paper-ink);
+  font-weight: 700;
+  text-underline-offset: 0.22em;
+}
+
+.entry:hover,
+.spec-row:hover { background: rgba(255, 255, 255, 0.45); }
+
+.spec-row { align-items: baseline; }
+
+.where { margin: 0; }
+
+/* --- 开始通联：四步，仍留在夜色底上 --- */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem 1rem;
+  align-items: start;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.steps li::before {
+  content: counter(step);
+  counter-increment: step;
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  line-height: 1;
+  background: linear-gradient(120deg, var(--orange), var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.steps { counter-reset: step; }
+
+.steps h3 { font-size: 1.25rem; }
+
+.steps p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  grid-column: 2;
+}
+
+.steps a { color: var(--cyan); }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  color: var(--ink);
+}
+
+.foot {
+  padding: 1rem 0 3rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.foot a { color: var(--cyan); }
+
+.foot p { margin: 0.3rem 0; }
+
+@media (min-width: 800px) {
+  .hero-grid { grid-template-columns: 1.15fr 0.85fr; }
+
+  .entry {
+    grid-template-columns: 13.5rem 1fr auto;
+    align-items: start;
+  }
+
+  .open {
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  .spec-row { grid-template-columns: 7rem 1fr auto; }
+
+  .steps { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  .menu { display: inline-flex; }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -1rem;
+    right: -1rem;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.4rem 1rem 0.8rem;
+    background: #0c101c;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .top.open .nav { display: flex; }
+
+  .nav a { padding: 0.7rem 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .bars span { animation: none; transform: scaleY(0.55); }
+}

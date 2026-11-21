@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>78HAM — 业余无线电网络对讲</title>
+  <meta name="description" content="78HAM 在 NRLLink 上做多平台业余无线电对讲：Android、桌面、公网手台、ESP32、Minecraft 模组，以及转发服务器、管理后台、协议文档和通联日志。">
+  <link rel="canonical" href="https://78ham.github.io/">
+  <meta name="theme-color" content="#0c101c">
+  <meta property="og:title" content="78HAM — 业余无线电网络对讲">
+  <meta property="og:description" content="同一套 NRL21 语音网络，接到手机、电脑、手台和自己做的板子上。">
+  <meta property="og:image" content="https://78ham.github.io/assets/logo.webp">
+  <meta property="og:url" content="https://78ham.github.io/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到内容</a>
+
+  <header class="top">
+    <div class="stripes" aria-hidden="true"></div>
+    <div class="top-bar">
+      <a class="brand" href="#top">
+        <img src="assets/logo.webp" alt="" width="40" height="40">
+        <span>78HAM</span>
+      </a>
+      <button class="menu" type="button" aria-expanded="false" aria-controls="nav">菜单</button>
+      <nav id="nav" class="nav" aria-label="页内">
+        <a href="#devices">设备</a>
+        <a href="#network">网络</a>
+        <a href="#signals">信号</a>
+        <a href="#start">开始</a>
+        <a href="https://github.com/78ham" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">业余无线电 · 网络对讲</p>
+          <h1>同一套语音网络，接到每一台设备</h1>
+          <p class="lead">78HAM 在 NRLLink 上做客户端。手机、电脑、公网手台、ESP32-S3，以及一个留在 Minecraft 里也能说话的模组，走的是同一套 NRL21 语音包。转发服务器、管理后台、协议文档和通联日志也在这个组织下面。</p>
+          <div class="actions">
+            <a class="button" href="#devices">看设备</a>
+            <a class="button ghost" href="https://github.com/78ham" rel="noopener">组织仓库</a>
+          </div>
+          <p class="facts">语音走 UDP 60050。管理页面走 HTTPS，实时通话另有 WebSocket。</p>
+        </div>
+
+        <!-- 电台面板只改页面上的接收/发射字样，不连接任何服务器 -->
+        <div class="rig" data-rig>
+          <div class="screws" aria-hidden="true"><i></i><i></i></div>
+          <div class="screen">
+            <p class="screen-name">78HAM</p>
+            <p class="readout">
+              <span class="when-rx">RX · 待命</span>
+              <span class="when-tx">TX · 页面演示</span>
+            </p>
+            <div class="bars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <button class="ptt" type="button" aria-pressed="false">PTT</button>
+          <p class="ptt-hint">按住这个键。它只切换上面的显示，不会发射。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="devices" class="block">
+      <div class="wrap">
+        <div class="block-head">
+          <h2>手里的设备</h2>
+          <p>五套客户端。安装和按键适配以各仓库的说明为准，这个页面不提供安装包。</p>
+        </div>
+        <div class="book">
+          <article class="entry" id="android">
+            <div>
+              <h3>Android</h3>
+              <p class="kicker">手机和对讲机 · Kotlin</p>
+            </div>
+            <div>
+              <p>按住屏幕上的键说话，松开就收听。可以连多台服务器：每台进一个房间，既能说也能听，其他房间可以只听不说。息屏也能启麦，回到桌面后前台服务继续连着。</p>
+              <p class="aside">实体按键目前认和对讲 D12。CW、DTMF、Robot36 慢扫描电视、文字转语音、最长 60 秒录音和尾音都在这个客户端里。Android 6.0 起。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/78ham-Android" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="desktop">
+            <div>
+              <h3>Desktop</h3>
+              <p class="kicker">Windows 与 Linux · Python</p>
+            </div>
+            <div>
+              <p>暗色窗口，也可以关掉界面只用命令行。热键默认是 F5。编码用 G.711 A-law 或 Opus，运行时能换麦克风和扬声器，断线会自己重连。</p>
+              <p class="aside">松开按键可以补 DTMF、一段自己的 WAV，或 MDC1200。Wayland 下没有全局热键，用鼠标按住。许可证是 MIT。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/78ham-Desktop" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="ardptt">
+            <div>
+              <h3>ARDPTT</h3>
+              <p class="kicker">公网手台 · Kotlin</p>
+            </div>
+            <div>
+              <p>另一套安卓程序，给互联网手持台用。底是黑的，状态用荧光绿，一屏里的字更密。语音默认 Opus，16 kHz，大约 24 kbps，也能退回 G.711。</p>
+              <p class="aside">文本消息只收不发。开机可以自己连上。仓库里的默认服务器写的是 m.nrlptt.com，端口 60050。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/78ham-ardptt" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="esp32">
+            <div>
+              <h3>ESP32-S3</h3>
+              <p class="kicker">网络电台固件 · ESP-IDF</p>
+            </div>
+            <div>
+              <p>目标板是 ESP32-S3。1.77 寸彩屏，I2S 麦克风和功放，六个键管发射、音量和频道。没配过网时自己开热点，手机连上那个热点，用网页把服务器填进去。</p>
+              <p class="aside">热点名字以 78HAM-ESP32- 开头，后面是网卡地址末尾。语音是 Opus。仓库还在早期，接线写在文档里。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/78ham-nrlesp32" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="minecraft">
+            <div>
+              <h3>Minecraft</h3>
+              <p class="kicker">Fabric 模组 · Java</p>
+            </div>
+            <div>
+              <p>人留在游戏里。Left Alt 发射，N 打开面板选服务器和频道，M 静音。收的是 G.711 A-law，8 kHz。画面上有一块小字，显示连接和正在说话的人。</p>
+              <p class="aside">当前对应 Minecraft 26.2。呼号撞车时 SSID 会自动加一。三个键都能在游戏的按键设置里改。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/nrlmod" rel="noopener">打开仓库</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="network" class="block">
+      <div class="wrap">
+        <div class="block-head">
+          <h2>网络这一侧</h2>
+          <p>客户端把包送到服务器。服务器、管理页、协议笔记和通联日志是另外四个仓库。NRLLink 原作是 BH4RPN（BG4VKI）。</p>
+        </div>
+        <div class="book">
+          <article class="entry" id="server">
+            <div>
+              <h3>转发服务器</h3>
+              <p class="kicker">Go · nrllink</p>
+            </div>
+            <div>
+              <p>UDP 把语音和信令按房间转发出去。硬件盒子、ESP32、手机和电脑都朝它说话。浏览器看实时通话走 WebSocket，位置可以报到 APRS。</p>
+              <p class="aside">78HAM 在原仓库上继续改。模块名 udphub，Go 1.21 起。许可证是 MIT。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/nrllink-78ham" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="web">
+            <div>
+              <h3>管理后台</h3>
+              <p class="kicker">Vue 3 · Vite</p>
+            </div>
+            <div>
+              <p>管用户、设备和房间的网页。界面用 Element Plus，状态放在 Pinia 里。开发时接口默认代理到 js.nrlptt.com。</p>
+              <p class="aside">版本 4.1.0。许可证是 MIT。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/nrllink-web-78ham" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="docs">
+            <div>
+              <h3>协议文档</h3>
+              <p class="kicker">接口和包格式</p>
+            </div>
+            <div>
+              <p>HTTP、WebSocket、NRL21 的 48 字节包头、控制包，以及网页、微信小程序和 ESP32 怎么对接，对照四端源码写在一起。</p>
+              <p class="aside">查端口、返回码和某种 Type 是干什么的，从这里进。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/nrllink-docs" rel="noopener">打开仓库</a>
+          </article>
+
+          <article class="entry" id="log">
+            <div>
+              <h3>通联日志</h3>
+              <p class="kicker">Rust · QSO Log</p>
+            </div>
+            <div>
+              <p>在浏览器里记 QSO。服务端用 Axum 和 SQLite。服务器暂时连不上时，先记在本机，回来再同步。页面可以装到桌面。</p>
+              <p class="aside">可选把日志送到 QRZ。许可证是 MIT。</p>
+            </div>
+            <a class="open" href="https://github.com/78ham/78hamhamlog" rel="noopener">打开仓库</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="signals" class="block">
+      <div class="wrap">
+        <div class="block-head">
+          <h2>线上能走什么</h2>
+          <p>语音是共同的。后面几种信号只有一部分客户端做了。</p>
+        </div>
+        <div class="book spec">
+          <div class="spec-row">
+            <h3>语音</h3>
+            <p>按住说话，松开收听。编码是 G.711 A-law 或 Opus。</p>
+            <p class="where">各客户端</p>
+          </div>
+          <div class="spec-row">
+            <h3>文本</h3>
+            <p>UTF-8 短消息，和语音走同一条连接。</p>
+            <p class="where">桌面可收发，ARDPTT 只收</p>
+          </div>
+          <div class="spec-row">
+            <h3>CW</h3>
+            <p>把字变成摩尔斯再发出去，速度 5 到 35 WPM，音调 600 Hz。</p>
+            <p class="where">Android</p>
+          </div>
+          <div class="spec-row">
+            <h3>DTMF</h3>
+            <p>中继台用的双音。桌面的结束音也可以选 DTMF。</p>
+            <p class="where">Android、桌面</p>
+          </div>
+          <div class="spec-row">
+            <h3>SSTV</h3>
+            <p>Robot36 慢扫描电视。一张 320×240 的彩图，大约 36 秒。</p>
+            <p class="where">Android</p>
+          </div>
+          <div class="spec-row">
+            <h3>尾音</h3>
+            <p>讲完补一声，告诉对方这头说完了。Android 里有经典音、K 字、双音和 Quindar。</p>
+            <p class="where">Android、桌面</p>
+          </div>
+          <div class="spec-row">
+            <h3>MDC1200</h3>
+            <p>带内信令，用来报呼号、呼叫和紧急告警。</p>
+            <p class="where">桌面</p>
+          </div>
+          <div class="spec-row">
+            <h3>位置</h3>
+            <p>先用 GPS，没有就用 IP，再没有用事先填好的坐标。服务器侧可以转去 APRS。</p>
+            <p class="where">桌面，以及转发服务器</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="start" class="block">
+      <div class="wrap">
+        <div class="block-head">
+          <h2>开始一次通联</h2>
+          <p>顺序就这四步。服务器地址用你自己注册的那一台。</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <h3>用自己的呼号</h3>
+            <p>参加业余无线电通联，要有合法执照和有效呼号。软件不能代替这两样。</p>
+          </li>
+          <li>
+            <h3>账号在上游注册</h3>
+            <p>安卓客户端登录用 NRL 小程序里的用户名和密码。小程序是上游的 <a href="https://github.com/hicaoc/nrllink-mp" rel="noopener">nrllink-mp</a>，不是 78HAM 的仓库。</p>
+          </li>
+          <li>
+            <h3>选一台设备</h3>
+            <p>手机用 Android，电脑用 Desktop，公网手台看 ARDPTT，自己做的板子用 ESP32 固件。填进服务器地址再连接。</p>
+          </li>
+          <li>
+            <h3>进房间再按键</h3>
+            <p>连上之后选房间。按住 PTT 说话，松开结束。桌面命令行里对应的动作是 <code>join</code>，热键仍是按住说话。</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>78HAM 维护这些仓库。NRLLink 的原作者是 BH4RPN（BG4VKI），服务端在 <a href="https://github.com/hicaoc/nrllink" rel="noopener">hicaoc/nrllink</a>。</p>
+      <p>各仓库许可证不一样，以仓库里的 LICENSE 为准。这个网站是介绍页。对讲服务器和呼号注册都不在这里。</p>
+    </div>
+  </footer>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>
